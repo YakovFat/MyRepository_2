@@ -1,3 +1,5 @@
+from urllib.parse import urlencode
+
 import requests
 
 APP_ID = 6773521
@@ -14,12 +16,15 @@ auth_data = {
 
 # print(AUTH_URL + (urlencode(auth_data)))
 
-token = 'd4798e7ecf10b73f1a3b65ae24327ab20f85a8ef831c0693051c2b757b021a0be252a0a228912f181c97d'
+token = '0604595234f3425f42c4cad8791ac96d1f52b43be6e446c098edb38860cce4ab425fd5ac8cf1e8b3daaaa'
 
 
 class User:
     def __init__(self, id_user):
         self.id_user = id_user
+
+    def __str__(self):
+        return 'https://vk.com/id' + str(self.id_user)
 
     def get_friends(self):
         params = {
@@ -43,6 +48,5 @@ common_friends = list(set(friends_Anna['response']['items']) & set(friends_Kris[
 common_friends_class = []
 for i in common_friends:
     common_friends_class.append(User(i))
-user = 'https://vk.com/id' + str(common_friends[0])
-print(user)
+print(Kris)
 print(common_friends_class)
