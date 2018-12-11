@@ -14,9 +14,9 @@ auth_data = {
     'v': '5.92'
 }
 
-# print(AUTH_URL + (urlencode(auth_data)))
+print(AUTH_URL + (urlencode(auth_data)))
 
-token = '0604595234f3425f42c4cad8791ac96d1f52b43be6e446c098edb38860cce4ab425fd5ac8cf1e8b3daaaa'
+token = 'bdcfe380c4d26faba46e109bbbc207fd9220e035eb0efea5206d193782c7ea1aa6c763d7275f05c9fae2a'
 
 
 class User:
@@ -37,16 +37,22 @@ class User:
                                 params)
         return response.json()
 
+    def mutual_friend(self, user_2):
+        return list(
+            set(User(self.id_user).get_friends()['response']['items']) & set(user_2.get_friends()['response']['items']))
+
+    def mutual_friend_class(self, user_2):
+        mutual = list(
+            set(User(self.id_user).get_friends()['response']['items']) & set(user_2.get_friends()['response']['items']))
+        common_friends_class = []
+        for i in mutual:
+            common_friends_class.append(User(i))
+        return common_friends_class
+
 
 Kris = User(120597952)
-friends_Kris = Kris.get_friends()
 
 Anna = User(176913353)
-friends_Anna = Anna.get_friends()
-
-common_friends = list(set(friends_Anna['response']['items']) & set(friends_Kris['response']['items']))
-common_friends_class = []
-for i in common_friends:
-    common_friends_class.append(User(i))
+print(Kris.mutual_friend(Anna))
+print(Kris.mutual_friend_class(Anna))
 print(Kris)
-print(common_friends_class)
